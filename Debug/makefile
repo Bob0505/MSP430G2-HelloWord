@@ -10,7 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./blink.obj" \
+"./main.obj" \
 "../lnk_msp430g2553.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"libc.a" \
@@ -117,40 +117,40 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-HelloWord.out \
+MSP430G2-HelloWord.out \
 
 EXE_OUTPUTS__QUOTED += \
-"HelloWord.out" \
+"MSP430G2-HelloWord.out" \
 
 BIN_OUTPUTS += \
-HelloWord.hex \
+MSP430G2-HelloWord.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"HelloWord.hex" \
+"MSP430G2-HelloWord.hex" \
 
 
 # All Target
-all: HelloWord.out
+all: MSP430G2-HelloWord.out
 
 # Tool invocations
-HelloWord.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+MSP430G2-HelloWord.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MSP430 Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/bin/cl430" -vmsp --abi=eabi --use_hw_mpy=none --advice:power=all -g --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z -m"HelloWord.map" --heap_size=80 --stack_size=80 -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="HelloWord_linkInfo.xml" --use_hw_mpy=none --rom_model -o "HelloWord.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/bin/cl430" -vmsp --abi=eabi --use_hw_mpy=none --advice:power=all -g --define=__MSP430G2553__ --diag_warning=225 --diag_wrap=off --display_error_number --printf_support=minimal -z -m"MSP430G2-HelloWord.map" --heap_size=80 --stack_size=80 -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/include" --reread_libs --warn_sections --diag_wrap=off --display_error_number --xml_link_info="MSP430G2-HelloWord_linkInfo.xml" --use_hw_mpy=none --rom_model -o "MSP430G2-HelloWord.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-HelloWord.hex: $(EXE_OUTPUTS)
+MSP430G2-HelloWord.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: MSP430 Hex Utility'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/bin/hex430" --memwidth=8 --romwidth=8 -o "HelloWord.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_4.4.5/bin/hex430" --memwidth=8 --romwidth=8 -o "MSP430G2-HelloWord.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "blink.pp" 
-	-$(RM) "blink.obj" 
+	-$(RM) "main.pp" 
+	-$(RM) "main.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

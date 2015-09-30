@@ -1,4 +1,4 @@
-//***************************************************************************
+#include <msp430.h> 
 //  Frist Example for MSP430 LaunchPad Blink LED
 //
 //  Description: Toggles P1.0 by xor'ing P1.0 inside of a software loop. This
@@ -18,8 +18,8 @@
 //**************************************************************************
 #include <msp430g2553.h>
 
-void main(void) {
-	WDTCTL = WDTPW + WDTHOLD;	// disable watchdog
+int main(void) {
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
 	P1OUT = 0x40;				// initialize LED off
 	P1DIR = BIT0 | BIT6;		// P1.0 output
@@ -27,6 +27,8 @@ void main(void) {
 	while (1) {
 		P1OUT ^= BIT0;				// Toggle LED on P1.0
 		P1OUT ^= BIT6;				// Toggle LED on P1.6
-		__delay_cycles(300000);	// Wait ~100ms at default DCO of ~1MHz
+		__delay_cycles(100000);		// Wait ~100ms at default DCO of ~1MHz
 	}
-} // main
+
+	return 0;
+}
