@@ -10,17 +10,30 @@ int GPIORW(
 ){
 	uint8_t status = Status_Success;
 
+	//8.2.5 Function Select Registers PxSEL and PxSEL2
+	//PxSEL2  PxSEL
+	//	0 		0	I/O function is selected
+	P1SEL	&= ~selectedPins;
+	P1SEL2	&= ~selectedPins;
+
 	switch (selectedPort)
 	{
 		case GPIO_Port1:
+			//8.2.3 Direction Registers PxDIR
+			//	Bit = 0: The port pin is switched to input direction
+			//	Bit = 1: The port pin is switched to output direction
 			if(GPIO_Input == DIR_InOut)
 			{
 				P1DIR &= ~selectedPins;
+				//8.2.4 Pullup/Pulldown Resistor Enable Registers PxREN
+				//	Bit = 0: Pullup/pulldown resistor disabled
+				//	Bit = 1: Pullup/pulldown resistor enabled
+				P1REN |=  selectedPins;
+
 			}
 			else if(GPIO_Output == DIR_InOut)
 			{
 				P1DIR |=  selectedPins;
-				//init GPO High/Low
 				//8.2.2 Output Registers PxOUT
 				//	Bit = 0: The output is low
 				//	Bit = 1: The output is high
